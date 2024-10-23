@@ -22,10 +22,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="article_edit : ${articles}">
+                    <tr th:each="article : ${articles}">
                         <td th:text="${article.id}"></td>
                         <td th:text="${article.title}"></td>
                         <td th:text="${article.content}"></td>
+                        <!-- 수정 버튼 -->
+                        <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">수정</a>
+                        <!-- 삭제 버튼 -->
+                        <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">삭제</a>
                     </tr>
                 </tbody>
             </table>
@@ -53,4 +57,3 @@
 <body>
 </html>
 
-    
