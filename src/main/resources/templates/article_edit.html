@@ -49,6 +49,9 @@
                 <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">수정</button>
+        <form th:action="@{/api/article_delete/{id}(id=${article.id})}" method="post" style="display:inline;">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-danger">삭제</button>
         </form>
     </div>
 
