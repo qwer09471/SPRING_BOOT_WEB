@@ -26,6 +26,11 @@ public class BlogService {
         return blogRepository.findAll();
         }
 
+    public Board save(AddArticleRequest request){
+        // DTO가 없는 경우 이곳에 직접 구현 가능
+        return blogRepository.save(request.toEntity());
+        }
+            
     // public Article save(AddArticleRequest request){
     //     // DTO가 없는 경우 이곳에 직접 구현 가능
     //     // public ResponseEntity<Article> addArticle(@RequestParam String title, @RequestParam String content) {
@@ -44,6 +49,15 @@ public class BlogService {
             return blogRepository.findById(id);
         }
 
+        public void update(Long id, AddArticleRequest article) {
+            Optional<Board> optionalBoard = blogRepository.findById(id); // 단일 글 조회
+            optionalBoard.ifPresent(board -> { // 값이 있으면
+                board.update(article.getUser(), article.getNewdate(), article.getCount(), article.getLikec(),article.getTitle(), // title 추가
+                article.getContent()); // content 추가); // 값을 수정
+                blogRepository.save(board); // Board 객체에 저장
+            });
+        }
+        
 
         // public void update(Long id, AddArticleRequest request) {
         //     Optional<Article> optionalArticle = blogRepository.findById(id); // 단일 글 조회

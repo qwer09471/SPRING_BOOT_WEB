@@ -27,7 +27,11 @@
                 <tbody>
                     <tr th:each="board : ${boards}">
                         <td th:text="${board.id}"></td>
-                        <td th:text="${board.title}"></td>
+                        <td>
+                            <a th:href="@{/board_view/{id}(id=${board.id})}">
+                                <span th:text="${board.title}"></span>
+                            </a>
+                        </td>                            
                         <td th:text="${board.user}"></td>
                         <td th:text="${board.newdate}"></td>
                         <td th:text="${board.count}"></td>
@@ -37,22 +41,18 @@
             </table>
         </div>
         
-    <!-- 게시글 추가 폼-->
-     <div class="mt-4">
-        <h2>게시글 추가</h2>
-        <form th:action="@{/api/articles}" method="post" name="content">
-            <div class="form-group">
-                <label for ="title">제목:</label>
-                <input type="text" class="form-control" id="title" name="title" required>
-            </div>
-            <div class="form-group">
-                <label for="content">내용:</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">추가</button>
-        </form>
-     </div>
 
+     <!-- 글쓰기 페이지 -->
+    <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td><!-- 글쓰기 버튼 -->
+                        <a class="btn btn-warning" th:href="@{/board_write}">글쓰기</a>
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+    
     
 </div>
 <body>
