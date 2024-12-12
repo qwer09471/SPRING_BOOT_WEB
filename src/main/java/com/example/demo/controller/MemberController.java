@@ -11,6 +11,7 @@ import org.springframework.boot.actuate.web.exchanges.HttpExchange.Session;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +32,10 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller // 컨트롤러 어노테이션 명시
+
 public class MemberController {
     @Autowired // 객체 주입 자동화, 생성자 1개면 생략 가능
     public MemberService memberService;
@@ -43,7 +46,7 @@ public class MemberController {
     }
 
     @PostMapping("/api/members") // 회원 가입 저장
-    public String addmembers(@ModelAttribute AddMemberRequest request) {
+    public String addmembers(@Valid @ModelAttribute AddMemberRequest request) {
         memberService.saveMember(request);
         return "join_end"; // .HTML 연결
     }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.domain.Member;
@@ -12,6 +14,8 @@ import com.example.demo.model.repository.BoardRepository;
 import com.example.demo.model.repository.MemberRepository;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.executable.ValidateOnExecution;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Validated
 @Transactional // 트랜잭션 처리(클래스 내 모든 메소드 대상)
 @RequiredArgsConstructor
 
@@ -36,7 +41,7 @@ public class MemberService {
         }
     }
 
-    public Member saveMember(AddMemberRequest request){
+    public Member saveMember(@Valid AddMemberRequest request){
         validateDuplicateMember(request); // 이메일 체크
         
         String encodedPassword = passwordEncoder.encode(request.getPassword());
